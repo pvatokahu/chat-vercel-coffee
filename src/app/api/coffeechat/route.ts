@@ -15,7 +15,7 @@ export const POST = async (request: Request) => {
     sessionId: sessionId
   };
   console.log(requestJson)
-  const response = await fetch('chatbot-coffee-vercel-git-main-okahu.vercel.app/langchain_bot', {
+  const response = await fetch('https://chatbot-coffee-vercel-okahu.vercel.app/langchain_bot', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
