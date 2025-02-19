@@ -1,43 +1,42 @@
 import { logger } from '@/libs/Logger';
-import { v4 as uuidv4 } from 'uuid';
+import { Document } from "llamaindex";
+import { VectorStoreIndex } from "llamaindex";
 import { NextResponse } from 'next/server';
 
 export const POST = async (request: Request) => {
-  const sessionId = request.headers.get('X-Session-Id');
-  logger.info(`Processing request for session: ${sessionId}`);
-  
-  const json = await request.json()
-  console.log(json)
-  const id: string = uuidv4();
-  const requestJson = {
-    ...json,
-    requestId: id,
-    sessionId: sessionId
-  };
-  console.log(requestJson)
-  const response = await fetch('https://chatbot-coffee-vercel-okahu.vercel.app/langchain_bot', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      question: requestJson.question
-    }),
-  });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+    const sessionId = request.headers.get('X-Session-Id');
+    logger.info(`Processing request for session: ${sessionId}`);
 
-  const reply = await response.json();
+    process.env["MONOCLE_S3_KEY_PREFIX_CURRENT"] = sessionId ? sessionId + "__" : ""
 
+    process.env.MONO
+    const json = await request.json()
+    console.log("Request:", json.message);
 
+    // Create a simple document
+    const document = new Document({
+        text: "Coffee is a drink made from coffee beans.",
+    });
 
-  try {
-    const responsePayload = new TextDecoder('utf-8').decode(reply.Payload);
-    return NextResponse.json(JSON.parse(JSON.parse(responsePayload).body));
-  } catch (error) {
-    logger.error(`Error invoking lambda function: ${error}`);
-    return NextResponse.json({ error: 'Failed to invoke lambda function' }, { status: 500 });
-  }
+    // Create an index from the document
+    const index = await VectorStoreIndex.fromDocuments([document]);
+
+    // Query the index
+    const queryEngine = index.asQueryEngine();
+    const response = await queryEngine.query(
+        { query: json.message }
+    );
+
+    console.log("Response from llm:", response.toString());
+    return NextResponse.json({
+        message: {
+          role: "assistant",
+          content: [
+            {
+              text: response.toString()
+            }
+          ]
+        }
+      });
 };
