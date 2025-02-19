@@ -14,7 +14,7 @@ try {
     // Write the modified content back to package.json
     fs.writeFileSync(llamaindexPackagePath, modifiedPackageJson);
     
-    console.log('Successfully modified package.json and created backup');
+    console.log(`Successfully modified ${llamaindexPackagePath} and created backup`);
 } catch (error) {
     console.error('Error:', error.message);
 }

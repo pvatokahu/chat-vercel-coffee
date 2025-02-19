@@ -15,7 +15,7 @@ export default
       },
       poweredByHeader: false,
       reactStrictMode: true,
-      serverExternalPackages : ['monocle2ai', 'require-in-the-middle', 'import-in-the-middle', 'openai', 'llamaindex'],
+      serverExternalPackages : ['monocle2ai', 'require-in-the-middle', 'import-in-the-middle', 'openai', 'llamaindex', 'langchain', '@langchain/core','@langchain/openai', '@langchain'],
     }
   // );
 

@@ -4,7 +4,7 @@
   "scripts": {
     "dev:next": "next dev",
     "dev": "run-p dev:*",
-    "build": "node ./scripts/patch_module_llamaindex.js && node ./scripts/patch_module_openai.js && next build",
+    "build": "node ./scripts/patch_module_llamaindex.js && node ./scripts/patch_module_openai.js && node ./scripts/patch_module_langchain.js && next build",
     "start": "next start",
     "build-stats": "cross-env ANALYZE=true npm run build",
     "clean": "rimraf .next out coverage",
@@ -13,16 +13,15 @@
     "check-types": "tsc --noEmit --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-lambda": "^3.726.1",
     "@aws-sdk/client-s3": "^3.733.0",
-    "@aws-sdk/s3-request-presigner": "^3.733.0",
     "@azure/storage-blob": "^12.26.0",
     "@hookform/resolvers": "^3.9.1",
+    "@langchain/core": "^0.3.40",
+    "@langchain/openai": "^0.4.4",
     "@t3-oss/env-nextjs": "^0.11.1",
     "dotenv": "^16.3.1",
     "import-in-the-middle": "^1.13.0",
-    "langchain": "^0.0.200",
-    "llamaindex": "^0.9.0",
+    "langchain": "^0.3.19",
     "monocle2ai": "^0.0.1-beta.3",
     "next": "^15.1.7",
     "next-intl": "^3.26.0",
