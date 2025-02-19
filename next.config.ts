@@ -1,20 +1,21 @@
-import withBundleAnalyzer from '@next/bundle-analyzer';
+// import withBundleAnalyzer from '@next/bundle-analyzer';
 import './src/libs/Env';
 
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-});
+// const bundleAnalyzer = withBundleAnalyzer({
+//   enabled: process.env.ANALYZE === 'true',
+// });
 
 /** @type {import('next').NextConfig} */
 export default
-  bundleAnalyzer(
+  // bundleAnalyzer(
     {
       eslint: {
         dirs: ['.'],
         ignoreDuringBuilds: true
       },
       poweredByHeader: false,
-      reactStrictMode: true
-    },
-  );
+      reactStrictMode: true,
+      serverExternalPackages : ['monocle2ai', 'require-in-the-middle', 'import-in-the-middle', 'openai', 'llamaindex'],
+    }
+  // );
 
