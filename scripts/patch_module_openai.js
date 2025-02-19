@@ -19,7 +19,7 @@ try {
     // Write the modified content back to package.json
     fs.writeFileSync(openaiPackagePath, modifiedPackageJson);
     
-    console.log('Successfully modified package.json and created backup');
+    console.log(`Successfully modified ${openaiPackagePath} and created backup`);
 } catch (error) {
     console.error('Error:', error.message);
 }
