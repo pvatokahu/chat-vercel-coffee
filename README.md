@@ -57,12 +57,33 @@ This repository includes two versions of the app where the GenAI code is built i
      - In this example the traces are sent to a bucket in AWS S3. 
 - For demo purposes, this example also includes features to [browse](src/app/api/s3list/route.ts) and [view](src/app/s3/page.tsx) Monocle generated traces stored in AWS S3. 
 
+## Generating Coffee Knowledge Embeddings
+
+To generate the embeddings for the coffee knowledge base:
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Set your OpenAI API key:
+```bash
+export OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
+```
+
+3. Run the embedding creator script:
+```bash
+node data/coffeeEmbeddingCreator.js
+```
+
+This will generate a `coffeeEmbedding.json` file in the data directory containing the embeddings for all coffee-related text.
+
 ## Deploy this app in your cloud
 
 // coming soon
 
-### About Okahu 
+### About Okahu
 
 [Okahu](https://www.okahu.ai) is a team of AI, observability & cloud engineers working to simplify observability for agentic and other GenAI apps. We serve AI app developers, platform engineers and engineering leaders to build reliable, accurate and safer AI apps. We believe in community driven open source software and are a major contributor to GenAI native observability Project Monocle hosted by Linux Foundation.
 
-Connect with us on [Linkedin](https://www.linkedin.com/company/99272699/admin/dashboard/), [Github](https://github.com/okahu) or email us at <dx@okahu.ai> 
+Connect with us on [Linkedin](https://www.linkedin.com/company/99272699/admin/dashboard/), [Github](https://github.com/okahu) or email us at <dx@okahu.ai>
