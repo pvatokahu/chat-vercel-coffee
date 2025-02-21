@@ -1,5 +1,5 @@
 {
-  "name": "chatbot-coffee-lambda",
+  "name": "chatbot-coffee-vercel",
   "version": "1.0.0",
   "scripts": {
     "dev:next": "next dev",
