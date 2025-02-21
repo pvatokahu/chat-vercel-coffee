@@ -4,7 +4,7 @@ This repository contains source code for an [AI assistant](#about-this-ai-assist
 
 <img src="assets/img/coffee-ai-assistant.png" width="320"> <img src="assets/img/monocle-trace.png" width="320">
 
-[Ask a question](https://monocle2ai.okahu.io) about coffee and this AI assistant will answer based on [knowledgebase](lambda/monocle-s3-langchain/coffee-chatbot-typescript/data/coffeeText.js) about coffee using an LLM. You can then explore telemetry to view the traces captured by Monocle resulting from this interaction. 
+[Ask a question](https://monocle2ai.okahu.io) about coffee and this AI assistant will answer based on [knowledgebase](data/coffeeText.js) about coffee using an LLM. You can then explore telemetry to view the traces captured by Monocle resulting from this interaction. 
 
 ### About Monocle 
 
@@ -18,7 +18,7 @@ Monocle is currently a [Sandbox](https://lfaidata.foundation/projects/monocle/) 
 
 <img src="assets/img/ai-assistant-aws.png" width="430">
 
-This AI assistant is a simple chatbot with the front-end built with Next.js and the GenAI code built with Langchain framework that relies on an OpenAI GPT model. The app is hosted in AWS with the GenAI code served as Lambda function that calls OpenAI for model inference. 
+This AI assistant is a simple chatbot with the front-end built with Next.js and the GenAI code built with Langchain framework that relies on an OpenAI GPT model. The app is hosted in Vercel with the GenAI code running in an API with NextJS route.
 
 The GenAI app code is instrumented with Monocle using one line of code to trace the entire conversation including inferences to OpenAI and vector searchs. Monocle is configured to send traces to S3 so you can explore the raw trace data, which is in an OpenTelemetry compatible format with a GenAI-native metamodel abstraction added to it to simplify analysis. 
 
@@ -36,25 +36,24 @@ This repository includes two versions of the app where the GenAI code is built i
 
 - Front end of this chatbot is built using Next.js and runs in AWS App Runner.   
   - Start with [page.tsx](src/app/page.tsx) for the code of the main chat window. 
-  - Entering a message and clicking send invokes a Lambda function in [api/coffeechat](src/app/api/coffeechat/route.ts).
-- GenAI code is built using LangChain framework and runs in an AWS Lambda function.
-  - See [coffee-chatbot-typescript](lambda/monocle-s3-langchain/coffee-chatbot-typescript/) for the TypeScript version.
-      - Entry point is [app.js](lambda/monocle-s3-langchain/coffee-chatbot-typescript/app.js) which handles the payload sent from the front-end.
-      - From this entry point, **a single RAG chain** is invoked as specified in [langchain.js](lambda/monocle-s3-langchain/coffee-chatbot-typescript/langchain.js). 
+  - Entering a message and clicking send invokes a NextJS API route in [api/coffeechat](src/app/api/coffeechat/route.ts).
+- GenAI code is built using LangChain framework and runs in the NextJS API route.
+  - See [coffee-chatbot-typescript](src/app/api/coffeechat/langchain.ts) for the TypeScript version.
+      - Entry point is [route.ts](src/app/api/coffeechat/route.ts.) which handles the payload sent from the front-end.
+      - From this entry point, **a single RAG chain** is invoked as specified in [langchain.ts](src/app/api/coffeechat/langchain.ts). 
       - In this example,
-            - A list of Coffee preparations is used to define the [knowledge base](lambda/monocle-s3-langchain/coffee-chatbot-typescript/data/coffeeText.js).  
+            - A list of Coffee preparations is used to define the [knowledge base](data/coffeeText.js).  
             - Embeddings are generated using an OpenAI embedding model, stored in an in-memory vector store and used to create context for language model. 
             - A prompt template is included as part of the Langchain code and used with user input and context to generate a response to the user with the language model. 
             - OpenAI is also used for the language model. 
-      - See [utils.js](lambda/monocle-s3-langchain/coffee-chatbot-typescript/utils.js) for the implementation of `langchainInvoke()`. 
-  - See [coffee-chatbot-python](lambda/python-monocle-s3-langchain/coffee-chatbot-python/) for the Python version.
-- Monocle instrumentation is added to the entry point of the Lambda function in [app.js](lambda/monocle-s3-langchain/coffee-chatbot-typescript/app.js). 
+      - See [utils.js](src/app/api/coffeechat/utils.ts) for the implementation of `langchainInvoke()`.
+- Monocle instrumentation is added to the instrumentation part of the app in [instrumentation.ts](src/instrumentation.ts). 
   - Monocle will trace execution of any GenAI-native code, e.g. `langchainInvoke(requestMessage)`. 
-  - For TypeScript, see [app.js](lambda/monocle-s3-langchain/coffee-chatbot-typescript/app.js). 
+  - For TypeScript, see [instrumentation.ts](src/instrumentation.ts). 
      - `const { setupMonocle } = require("monocle2ai")` specifies use of the Monocle npm package. 
      - `setupMonocle("openai.app")` specifies how Monocle package should start the trace and add reousrce attribute in the trace. 
-  - See [package.json](lambda/monocle-s3-langchain/coffee-chatbot-typescript/package.json) for the Monocle dependency `"monocle2ai": "^0.0.1-beta.2"`
-  - See [template.yaml](lambda/monocle-s3-langchain/template.yaml) for environment variables to configure where Monocle sends the traces.
+  - See [package.json](package.json) for the Monocle dependency `"monocle2ai": "^0.0.1-beta.2"`
+  - See [.env](.env) for environment variables to configure where Monocle sends the traces.
      - In this example the traces are sent to a bucket in AWS S3. 
 - For demo purposes, this example also includes features to [browse](src/app/api/s3list/route.ts) and [view](src/app/s3/page.tsx) Monocle generated traces stored in AWS S3. 
 
