@@ -33,7 +33,7 @@ We also have versions of this code built with other languages like Python, LLM o
   - Click on a specific trace file to see the content in a modal view. 
     - You can expand or collapse sections of json. 
 
-This demo is managed by the following LF contributors to Monocle: [Okahu](#about-okahu).[^1] 
+This demo is managed by the following LF contributors to Monocle: *Okahu*.[^1] 
 
 ### Explore the GenAI app code 
 
