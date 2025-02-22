@@ -4,7 +4,7 @@ This repository contains source code for an [AI assistant](#about-this-ai-assist
 
 <img src="assets/img/coffee-ai-assistant.png" width="320"> <img src="assets/img/monocle-trace.png" width="320">
 
-[Ask a question](https://monocle2ai.okahu.io) about coffee and this AI assistant will answer based on [knowledgebase](data/coffeeText.js) about coffee using an LLM. You can then explore telemetry to view the traces captured by Monocle resulting from this interaction. This repository contains code for the GenAI app you can deploy to learn how Monocle instrumentation works. 
+[Ask a question](https://chatbot-coffee-vercel.vercel.app/) about coffee and this AI assistant will answer based on [knowledgebase](data/coffeeText.js) about coffee using an LLM. You can then explore telemetry to view the traces captured by Monocle resulting from this interaction. This repository contains code for the GenAI app you can deploy to learn how Monocle instrumentation works. 
 
 ### About Monocle 
 
