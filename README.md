@@ -92,7 +92,6 @@ node data/coffeeEmbeddingCreator.js
 This script will read `data/coffeeText.js` to generate `coffeeEmbedding.json`, which is then used as `coffeeData` in [coffeechat/utils.ts](src/app/api/coffeechat/utils.ts) to create the `{context}` in the [system prompt](src/app/api/coffeechat/utils.ts). 
 
 
-[^1]: By sending a message to Okahu hosted demo, you agree to Okahu's [terms of service](https://www.okahu.ai/agreements/evaluation-agreement). 
-  **About Okahu**
+[^1]: Use of Okahu hosted demo is covered by Okahu's [terms of service for evaluations](https://www.okahu.ai/agreements/evaluation-agreement). 
   [Okahu](https://www.okahu.ai) is a team of AI, observability & cloud engineers working to simplify observability for agentic and other GenAI apps. We serve AI app developers, platform engineers and engineering leaders to build reliable, accurate and safer AI apps. We believe in community driven open source software and are a major contributor to GenAI native observability Project Monocle hosted by Linux Foundation.
   Connect with us on [Linkedin](https://www.linkedin.com/company/99272699/admin/dashboard/), [Github](https://github.com/okahu) or email us at <dx@okahu.ai>
