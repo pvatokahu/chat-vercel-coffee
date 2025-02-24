@@ -6,7 +6,6 @@ export const POST = async (request: Request) => {
 
   const sessionId = request.headers.get('X-Session-Id');
   logger.info(`Processing request for session: ${sessionId}`);
-  process.env["MONOCLE_S3_KEY_PREFIX_CURRENT"] = sessionId ? sessionId + "__" : ""
 
   const json = await request.json()
   console.log("Request:", json.message);
