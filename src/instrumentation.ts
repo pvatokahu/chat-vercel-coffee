@@ -6,6 +6,6 @@ export function register() {
     console.log("Registering instrumentation")
     // this reisters monocle instrumentation
     setupMonocle(
-        "chat-vercel-coffee-wf"
+        "chat-vercel-coffee-wf-may19"
     )
 }
